@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,9 +15,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.PopupMenu;
 
 import com.w2s.orhan.where2stay.Sign.SignActivity;
 import com.w2s.orhan.where2stay.Tabs.FourFragment;
@@ -56,6 +60,20 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
         */
 
+        final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_sort:
+                        showPopup(bottomNav);
+                        break;
+                }
+                return true;
+            }
+
+        });
+
     }
 
     @Override
@@ -72,26 +90,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new FourFragment(), "Ev Arkadaşı");
 
         viewPager.setAdapter(adapter);
-    }
-
-    public void openChat(View view) {
-        if(sharedPreferences.getBoolean("isLogin", false)){
-            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
-            startActivity(intent);
-        }
-    }
-    public void openProfile(View view) {
-        if (sharedPreferences.getBoolean("isLogin", false)) {
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
-            startActivity(intent);
-        }
-
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -122,4 +120,38 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    public void openChat(View view) {
+        if(sharedPreferences.getBoolean("isLogin", false)){
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
+            startActivity(intent);
+        }
+    }
+    public void openProfile(View view) {
+        if (sharedPreferences.getBoolean("isLogin", false)) {
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public void showPopup (View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return false;
+            }
+        });
+
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+    }
+
+
 }
