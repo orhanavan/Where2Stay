@@ -1,43 +1,35 @@
-package com.w2s.orhan.where2stay;
+package com.w2s.orhan.where2stay.Sign;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
-import com.w2s.orhan.where2stay.Sign.SignActivity;
-import com.w2s.orhan.where2stay.Tabs.FourFragment;
-import com.w2s.orhan.where2stay.Tabs.OneFragment;
-import com.w2s.orhan.where2stay.Tabs.ThreeFragment;
-import com.w2s.orhan.where2stay.Tabs.TwoFragment;
+import com.w2s.orhan.where2stay.MainActivity;
+import com.w2s.orhan.where2stay.R;
 
-import java.security.SignatureSpi;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class SignActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    public static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,46 +41,24 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = MainActivity.sharedPreferences.edit();
+                editor.putBoolean("isLogin", true);
+                editor.commit();
+            }
+        });
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "Kiralık Daire");
-        adapter.addFragment(new TwoFragment(), "Satılık Daire");
-        adapter.addFragment(new ThreeFragment(), "Günlük Kiralık Daire");
-        adapter.addFragment(new FourFragment(), "Ev Arkadaşı");
+        adapter.addFragment(new SignInFragment(), "Kiralık Daire");
+        adapter.addFragment(new SignInFragment(), "Kiralık Daire");
 
         viewPager.setAdapter(adapter);
-    }
-
-    public void openChat(View view) {
-        if(sharedPreferences.getBoolean("isLogin", false)){
-            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
-            startActivity(intent);
-        }
-    }
-    public void openProfile(View view) {
-        if (sharedPreferences.getBoolean("isLogin", false)) {
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
-            startActivity(intent);
-        }
-
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

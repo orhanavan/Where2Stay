@@ -23,9 +23,10 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:padding="12dp"
+                android:layout_gravity="left"
                 android:drawableLeft="@drawable/ic_mail_white_24dp"
-                android:clickable="true"
-                android:background="?android:selectableItemBackground" />
+                android:background="?android:selectableItemBackground"
+                android:onClick="openChat"/>
 
             <TextView
                 android:id="@+id/tvProfile"
@@ -34,10 +35,9 @@
                 android:padding="12dp"
                 android:layout_gravity="right"
                 android:drawableLeft="@drawable/ic_person_white_24dp"
-                android:clickable="true"
                 android:background="?android:selectableItemBackground"
+                android:onClick="openProfile"/>
 
-                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
