@@ -50,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-
+        /*
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLogin", false);
+        editor.commit();
+        */
 
     }
 

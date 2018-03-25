@@ -2,6 +2,7 @@ package com.w2s.orhan.where2stay.Sign;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.w2s.orhan.where2stay.MainActivity;
 import com.w2s.orhan.where2stay.R;
 
@@ -25,6 +27,8 @@ public class SignActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    public FirebaseAuth mAuth;
+    public FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +45,21 @@ public class SignActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        // declaring fb variables
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor editor = MainActivity.sharedPreferences.edit();
-                editor.putBoolean("isLogin", true);
-                editor.commit();
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
             }
-        });
+        };
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SignInFragment(), "Kiralık Daire");
-        adapter.addFragment(new SignInFragment(), "Kiralık Daire");
+        adapter.addFragment(new SignInFragment(), "SignIn");
+        adapter.addFragment(new SignUpFragment(), "SignUp");
 
         viewPager.setAdapter(adapter);
     }
