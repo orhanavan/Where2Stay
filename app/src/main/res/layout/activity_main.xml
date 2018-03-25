@@ -63,18 +63,27 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="464dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
         />
 
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
     <android.support.design.widget.BottomNavigationView
+
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
-        app:layout_anchor="@+id/viewpager"
+        app:layout_anchor="@+id/frame"
         app:layout_anchorGravity="bottom|center"
-        app:menu="@menu/bottom_navigation">
+        app:menu="@menu/bottom_navigation"
+        >
 
     </android.support.design.widget.BottomNavigationView>
 
