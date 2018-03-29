@@ -23,9 +23,12 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.w2s.orhan.where2stay.Advert.AddAdvert;
 import com.w2s.orhan.where2stay.Sign.SignActivity;
+import com.w2s.orhan.where2stay.Tabs.FiveFragment;
 import com.w2s.orhan.where2stay.Tabs.FourFragment;
 import com.w2s.orhan.where2stay.Tabs.OneFragment;
+import com.w2s.orhan.where2stay.Tabs.SixFragment;
 import com.w2s.orhan.where2stay.Tabs.ThreeFragment;
 import com.w2s.orhan.where2stay.Tabs.TwoFragment;
 
@@ -39,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     public static SharedPreferences sharedPreferences;
+    private String c0 = "kiralık daire",
+                   c1 = "satılık daire",
+                   c2 = "günlük kiralık daire",
+                   c3 = "kiralık oda",
+                   c4 = "ev arkadaşı",
+                   c5 = "grup";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +65,25 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        /*
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isLogin", false);
-        editor.commit();
-        */
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int i = viewPager.getCurrentItem();
-                Toast.makeText(getApplicationContext(),Integer.toString(i),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), AddAdvert.class);
+                String type = "";
+                switch (i) {
+                    case 0 : type = c0; break;
+                    case 1 : type = c1; break;
+                    case 2 : type = c2; break;
+                    case 3 : type = c3; break;
+                    case 4 : type = c4; break;
+                    case 5 : type = c5; break;
+                }
+                intent.putExtra("type", type);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(),Integer.toString(i),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "Kiralık Daire");
-        adapter.addFragment(new TwoFragment(), "Satılık Daire");
-        adapter.addFragment(new ThreeFragment(), "Günlük Kiralık Daire");
-        adapter.addFragment(new FourFragment(), "Ev Arkadaşı");
+        adapter.addFragment(new OneFragment(), c0);
+        adapter.addFragment(new TwoFragment(), c1);
+        adapter.addFragment(new ThreeFragment(), c2);
+        adapter.addFragment(new FourFragment(), c3);
+        adapter.addFragment(new FiveFragment(), c4);
+        adapter.addFragment(new SixFragment(), c5);
 
         viewPager.setAdapter(adapter);
     }
@@ -129,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
+    }// viewpager adapter
 
     public void openChat(View view) {
         if(sharedPreferences.getBoolean("isLogin", false)){
@@ -150,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // sorting
     public void showPopup (View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

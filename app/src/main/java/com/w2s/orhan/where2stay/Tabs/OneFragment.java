@@ -41,7 +41,7 @@ public class OneFragment extends Fragment{
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         personList = new ArrayList<>();
-        for (int index=0 ; index < 10 ; index++){
+        for (int index=0 ; index < 15 ; index++){
             Person myPerson = new Person("orhan"+index,"programmer");
             personList.add(myPerson);
         }

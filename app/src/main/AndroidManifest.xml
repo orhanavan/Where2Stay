@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ChatActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".Sign.SignActivity"></activity>
+        <activity android:name=".Sign.SignActivity" />
+        <activity android:name=".Advert.AddAdvert"></activity>
     </application>
 
 </manifest>
