@@ -6,4 +6,13 @@
     <string name="title_activity_chat">ChatActivity</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string-array name="types">
+        <item>kiralık daire</item>
+        <item>satılık daire</item>
+        <item>günlük kiralık daire</item>
+        <item>kiralık oda</item>
+        <item>ev arkadaşı</item>
+        <item>grup</item>
+    </string-array>
+
 </resources>
