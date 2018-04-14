@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Advert.adv_threeFragment">
+    tools:context=".Advert.add_typeOne">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -18,19 +19,22 @@
                 android:textSize="30sp"/>
 
             <EditText
+                android:id="@+id/et_title1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="70"
-                android:maxLength="50" />
+                android:layout_weight="70" />
         </TableRow>
+
 
         <TableRow android:layout_marginBottom="10dp">
 
             <ImageView
+                android:id="@+id/iv_image1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="200dp"
-                android:src="@android:color/holo_green_light" />
+                android:src="@android:color/holo_green_light"
+                android:onClick="chooseImage"/>
         </TableRow>
 
         <TableRow android:layout_marginBottom="10dp">
@@ -44,14 +48,14 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="60"
-                android:maxLength="200" />
+                android:layout_weight="60" />
         </TableRow>
 
 
         <TableRow android:layout_marginBottom="10dp">
 
             <TextView
+                android:id="@+id/tv_cost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="30"
@@ -59,10 +63,10 @@
                 android:textSize="30sp"/>
 
             <EditText
+                android:id="@+id/et_cost1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="70"
-                android:inputType="number" />
+                android:layout_weight="70" />
         </TableRow>
 
         <TableRow android:layout_marginBottom="10dp">
@@ -91,9 +95,14 @@
                 android:text="İl:"
                 android:textSize="30sp"/>
 
-            <Spinner android:layout_height="wrap_content"
+            <AutoCompleteTextView
+                android:id="@+id/actv_il"
                 android:layout_width="0dp"
-                android:layout_weight="70"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:hint="Select a country"
+                android:completionThreshold="1"
+                android:completionHint="Select a country"/>
         </TableRow>
 
         <TableRow android:layout_marginBottom="10dp">
@@ -143,12 +152,53 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="40"
+                android:text="Kat sayısı:"
+                android:textSize="30sp"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60" />
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Tuvalet Tipi:"
+                android:textSize="30sp"/>
+
+            <Spinner android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="60"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
                 android:text="Banyo Tipi:"
                 android:textSize="30sp"/>
 
             <Spinner android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="60"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Banyo sayısı:"
+                android:textSize="30sp"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50" />
         </TableRow>
 
         <TableRow android:layout_marginBottom="10dp">
@@ -195,6 +245,19 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:text="Eşya:"
+                android:textSize="30sp"/>
+
+            <Spinner android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="70"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="40"
                 android:text="Ulaşım:"
                 android:textSize="30sp"/>
@@ -231,7 +294,94 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="40"
-                android:text="İnternet:"
+                android:text="Yalıtım:"
+                android:textSize="30sp"/>
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton" />
+                <RadioButton
+                    android:id="@+id/radioButton5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton" />
+                <RadioButton
+                    android:id="@+id/radioButton6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton" />
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Cephe:"
+                android:textSize="30sp"/>
+
+            <Spinner android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="60"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Bahçe:"
+                android:textSize="30sp"/>
+
+            <Spinner android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="60"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Asansör:"
+                android:textSize="30sp"/>
+
+            <Spinner android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="60"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Garaj:"
+                android:textSize="30sp"/>
+
+            <Spinner android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="60"/>
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Güvenlik:"
                 android:textSize="30sp"/>
 
             <Spinner android:layout_height="wrap_content"
@@ -257,7 +407,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="40"
-                android:text="Eşya:"
+                android:text="Çelik Kapı:"
                 android:textSize="30sp"/>
 
             <Spinner android:layout_height="wrap_content"
@@ -279,7 +429,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="EKLE"/>
+                android:text="EKLE"
+                android:onClick="addAdvert"/>
         </TableRow>
 
     </TableLayout>

@@ -1,12 +1,10 @@
 package com.w2s.orhan.where2stay;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -16,14 +14,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
-import com.w2s.orhan.where2stay.Advert.AddAdvert;
+import com.google.firebase.database.FirebaseDatabase;
+import com.w2s.orhan.where2stay.Advert.add_typeOne;
+import com.w2s.orhan.where2stay.Advert.add_typeTwo;
 import com.w2s.orhan.where2stay.Sign.SignActivity;
 import com.w2s.orhan.where2stay.Tabs.FiveFragment;
 import com.w2s.orhan.where2stay.Tabs.FourFragment;
@@ -32,7 +30,6 @@ import com.w2s.orhan.where2stay.Tabs.SixFragment;
 import com.w2s.orhan.where2stay.Tabs.ThreeFragment;
 import com.w2s.orhan.where2stay.Tabs.TwoFragment;
 
-import java.security.SignatureSpi;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,25 +62,19 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int i = viewPager.getCurrentItem();
-                Intent intent = new Intent(getApplicationContext(), AddAdvert.class);
-                String type = "";
+                Intent intent = null;
                 switch (i) {
-                    case 0 : type = c0; break;
-                    case 1 : type = c1; break;
-                    case 2 : type = c2; break;
-                    case 3 : type = c3; break;
-                    case 4 : type = c4; break;
-                    case 5 : type = c5; break;
+                    case 0 : intent = new Intent(getApplicationContext(), add_typeOne.class); break;
+                    case 1 : intent = new Intent(getApplicationContext(), add_typeTwo.class); break;
                 }
-                intent.putExtra("type", type);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(),Integer.toString(i),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -106,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -121,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    // viewpager adapter
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -148,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }// viewpager adapter
+    }
 
     public void openChat(View view) {
         if(sharedPreferences.getBoolean("isLogin", false)){

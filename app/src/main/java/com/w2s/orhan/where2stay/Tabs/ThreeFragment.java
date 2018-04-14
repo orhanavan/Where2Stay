@@ -20,14 +20,12 @@ public class ThreeFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("orhan33", "frag3 oluşturuldu");
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("orhan33", "frag3 gösteriliyor");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_two, container, false);
@@ -36,14 +34,12 @@ public class ThreeFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("orhan33", "frag3 yok edildi");
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("orhan33", "frag3 başladı");
     }
 
 }

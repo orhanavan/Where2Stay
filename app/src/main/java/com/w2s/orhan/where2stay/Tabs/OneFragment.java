@@ -8,19 +8,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.w2s.orhan.where2stay.MainActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.w2s.orhan.where2stay.Advert.Upload;
 import com.w2s.orhan.where2stay.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class OneFragment extends Fragment{
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter recyclerViewAdapter;
-    private List<Person> personList;
+    public RecyclerView mRecyclerView;
+    public ImageAdapter mAdapter;
+    public DatabaseReference mDatabaseRef;
+    public List<Upload> mUploads;
 
     public OneFragment() {
         // Required empty public constructor
@@ -29,39 +37,53 @@ public class OneFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("orhan33", "frag1 oluşturuldu");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_one, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        personList = new ArrayList<>();
-        for (int index=0 ; index < 15 ; index++){
-            Person myPerson = new Person("orhan"+index,"programmer");
-            personList.add(myPerson);
-        }
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        recyclerViewAdapter = new MyRecyclerViewAdapter(personList, getContext());
-        recyclerView.setAdapter(recyclerViewAdapter);
-
-        // Inflate the layout for this fragment
         return view;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e("orhan33", "frag1 yok edildi");
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("orhan33", "frag1 başladı");
+
+        mUploads = new ArrayList<>();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts").child("kiralık");
+        mDatabaseRef.keepSynced(true);
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
+                    String s1 = hashMap.get("title");
+                    String s2 = hashMap.get("cost");
+                    String s3 = hashMap.get("downloadurl");
+
+                    Upload upload = new Upload(s1, s2, s3);
+                    mUploads.add(upload);
+
+                }
+
+                mAdapter = new ImageAdapter(getActivity(), mUploads);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
