@@ -24,7 +24,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".Sign.SignActivity" />
         <activity android:name=".Advert.add_typeOne" />
-        <activity android:name=".Advert.add_typeTwo"></activity>
+        <activity android:name=".Advert.add_typeTwo" />
+        <activity android:name=".Advert.Detailed"></activity>
     </application>
 
 </manifest>

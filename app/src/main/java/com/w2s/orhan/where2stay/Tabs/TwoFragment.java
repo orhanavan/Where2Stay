@@ -67,8 +67,10 @@ public class TwoFragment extends Fragment{
                     String s1 = hashMap.get("title");
                     String s2 = hashMap.get("cost");
                     String s3 = hashMap.get("downloadurl");
+                    String s4 = ds.getKey();
 
-                    Upload upload = new Upload(s1, s2, s3);
+                    Upload upload = new Upload(s1, s2, s3, s4);
+
                     mUploads.add(upload);
 
                 }

@@ -1,7 +1,10 @@
 package com.w2s.orhan.where2stay.Tabs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.w2s.orhan.where2stay.Advert.Detailed;
 import com.w2s.orhan.where2stay.Advert.Upload;
 import com.w2s.orhan.where2stay.R;
 
@@ -33,9 +37,17 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        Upload upload = mUploads.get(position);
+        final Upload upload = mUploads.get(position);
         holder.textViewTitle.setText(upload.getTitle());
         holder.textViewCost.setText(upload.getCost());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, Detailed.class);
+                intent.putExtra("advertID", upload.getAdvertID());
+                mContext.startActivity(intent);
+            }
+        });
         Picasso.with(mContext)
                 .load(upload.getImageURL())
                 .placeholder(R.mipmap.ic_launcher)
@@ -55,6 +67,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         public TextView textViewTitle;
         public TextView textViewCost;
         public ImageView imageView;
+        CardView cardView;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
@@ -62,7 +75,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             textViewTitle = itemView.findViewById(R.id.tv_title_item);
             textViewCost = itemView.findViewById(R.id.tv_cost_item);
             imageView = itemView.findViewById(R.id.iv_item);
-
+            cardView = itemView.findViewById(R.id.content_item);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.w2s.orhan.where2stay.Tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.w2s.orhan.where2stay.Advert.Detailed;
 import com.w2s.orhan.where2stay.Advert.Upload;
+import com.w2s.orhan.where2stay.MainActivity;
 import com.w2s.orhan.where2stay.R;
 
 import java.util.ArrayList;
@@ -49,6 +52,10 @@ public class OneFragment extends Fragment{
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+
+
+
         return view;
     }
 
@@ -56,7 +63,6 @@ public class OneFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts").child("kiralık");
         mDatabaseRef.keepSynced(true);
@@ -64,13 +70,13 @@ public class OneFragment extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
                     HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
                     String s1 = hashMap.get("title");
                     String s2 = hashMap.get("cost");
                     String s3 = hashMap.get("downloadurl");
+                    String s4 = ds.getKey();
 
-                    Upload upload = new Upload(s1, s2, s3);
+                    Upload upload = new Upload(s1, s2, s3, s4);
                     mUploads.add(upload);
 
                 }
@@ -84,6 +90,7 @@ public class OneFragment extends Fragment{
                 Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
 }
