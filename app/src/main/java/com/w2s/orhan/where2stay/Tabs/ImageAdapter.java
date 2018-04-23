@@ -2,8 +2,6 @@ package com.w2s.orhan.where2stay.Tabs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.w2s.orhan.where2stay.Advert.Detailed;
-import com.w2s.orhan.where2stay.Advert.Upload;
+import com.w2s.orhan.where2stay.Advert.DetailedActivity;
 import com.w2s.orhan.where2stay.R;
 
 import java.util.List;
@@ -43,7 +40,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, Detailed.class);
+                Intent intent = new Intent(mContext, DetailedActivity.class);
                 intent.putExtra("advertID", upload.getAdvertID());
                 mContext.startActivity(intent);
             }

@@ -6,4 +6,6 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="messageBox">#FF0689E7</color>
+    <color name="messageBoxFrom">#5f00ca18</color>
 </resources>

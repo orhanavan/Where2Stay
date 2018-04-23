@@ -1,12 +1,9 @@
 package com.w2s.orhan.where2stay.Sign;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +23,10 @@ import com.w2s.orhan.where2stay.R;
 public class SignInFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
-    TextView textEmail;
-    TextView textPassword;
-    Button btnSignIn;
-    View view;
+    private TextView textEmail;
+    private TextView textPassword;
+    private Button btnSignIn;
+    private View view;
     SignActivity signActivity;
 
     public SignInFragment() {
@@ -44,12 +39,10 @@ public class SignInFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        signActivity = (SignActivity) getActivity();
-        mAuth = signActivity.mAuth;
-        mAuthListener = signActivity.mAuthListener;
+        mAuth = FirebaseAuth.getInstance();
 
         view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         textEmail = view.findViewById(R.id.txt_Email);

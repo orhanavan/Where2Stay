@@ -111,6 +111,7 @@ public class add_typeOne extends AppCompatActivity {
                 String userEmail = user.getEmail().toString();
                 String advTitle = textTitle.getText().toString();
                 String advCost = textCost.getText().toString();
+                String userID = user.getUid();
 
                 // post için eşsiz id
                 UUID uuid = UUID.randomUUID();
@@ -121,6 +122,8 @@ public class add_typeOne extends AppCompatActivity {
                 databaseReference.child("Posts").child("kiralık").child(uuidString).child("title").setValue(advTitle);
                 databaseReference.child("Posts").child("kiralık").child(uuidString).child("cost").setValue(advCost);
                 databaseReference.child("Posts").child("kiralık").child(uuidString).child("downloadurl").setValue(downloadURL);
+                databaseReference.child("Posts").child("kiralık").child(uuidString).child("user_id").setValue(userID);
+
 
                 Toast.makeText(getApplicationContext(), "Post Shared!", Toast.LENGTH_SHORT).show();
                 finish();

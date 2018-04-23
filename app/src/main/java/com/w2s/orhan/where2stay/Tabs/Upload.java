@@ -1,6 +1,5 @@
-package com.w2s.orhan.where2stay.Advert;
+package com.w2s.orhan.where2stay.Tabs;
 
-import android.support.v7.widget.RecyclerView;
 
 public class Upload {
     private String title;
@@ -17,6 +16,7 @@ public class Upload {
         this.imageURL = imageURL;
         this.advertID = advertID;
     }
+
 
     public String getTitle() {
         return title;

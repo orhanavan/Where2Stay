@@ -37,6 +37,7 @@ public class SignActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (toolbar != null )
         getSupportActionBar().setTitle(null);
 
         viewPager = findViewById(R.id.viewpager);
@@ -92,4 +93,6 @@ public class SignActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 }

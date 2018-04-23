@@ -14,5 +14,6 @@
         <item>ev arkadaşı</item>
         <item>grup</item>
     </string-array>
+    <string name="title_activity_conversation">Conversation</string>
 
 </resources>

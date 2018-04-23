@@ -1,6 +1,5 @@
 package com.w2s.orhan.where2stay.Tabs;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.w2s.orhan.where2stay.Advert.Detailed;
-import com.w2s.orhan.where2stay.Advert.Upload;
 import com.w2s.orhan.where2stay.MainActivity;
 import com.w2s.orhan.where2stay.R;
 
@@ -53,9 +50,6 @@ public class OneFragment extends Fragment{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
-
-
         return view;
     }
 
@@ -65,10 +59,11 @@ public class OneFragment extends Fragment{
         super.onStart();
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts").child("kiralık");
-        mDatabaseRef.keepSynced(true);
+        //mDatabaseRef.keepSynced(true);
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     HashMap<String, String> hashMap = (HashMap<String, String>) ds.getValue();
                     String s1 = hashMap.get("title");
@@ -87,7 +82,6 @@ public class OneFragment extends Fragment{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

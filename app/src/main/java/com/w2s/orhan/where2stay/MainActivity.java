@@ -21,6 +21,7 @@ import android.widget.PopupMenu;
 import com.google.firebase.database.FirebaseDatabase;
 import com.w2s.orhan.where2stay.Advert.add_typeOne;
 import com.w2s.orhan.where2stay.Advert.add_typeTwo;
+import com.w2s.orhan.where2stay.Chat.ChatActivity;
 import com.w2s.orhan.where2stay.Sign.SignActivity;
 import com.w2s.orhan.where2stay.Tabs.FiveFragment;
 import com.w2s.orhan.where2stay.Tabs.FourFragment;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                    c3 = "kiralık oda",
                    c4 = "ev arkadaşı",
                    c5 = "grup";
+    public static FloatingActionButton fab;
 
     static {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
@@ -66,9 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    // bottom navigation
+        // bottom navigation
         final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -95,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     @Override
     protected void onStart() {
+        if (sharedPreferences.getBoolean("isLogin", false))
+            fab.setVisibility(View.VISIBLE);
         super.onStart();
 
     }
